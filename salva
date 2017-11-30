@@ -1,0 +1,25 @@
+<?php 
+   
+    $id = filter_input(INPUT_POST, 'id');
+    $novoNome = filter_input(INPUT_POST, 'nome');
+    $novoEmail = filter_input(INPUT_POST, 'email');
+
+   
+    $conexao = mysqli_connect("servidor","usuario","senha","bancodedados");
+    if( !$conexao ){
+        header("Location:exibe.php?alteracao=false");
+        exit;
+    }
+    
+    $sql = "UPDATE pessoas SET nome='" . $novoNome . "', email='" . $novoEmail . "' WHERE id=".$id;
+    $update = mysqli_query($conexao, $sql);
+
+  
+    if( !$update ){
+        header("Location:exibe.php?alteracao=false");
+        exit;
+    }
+
+
+    header("Location:exibe.php?alteracao=true");
+?>
